@@ -1,0 +1,16 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  lint:
+    runs-on: chef/chefdk
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run a multi-line script
+        run: cookstyle .
