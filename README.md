@@ -1,8 +1,26 @@
 # reverse_ssh_chef
 
 ## Prerequisites
-- install vagrant
-- vagrant plugin install vagrant-vbguest
+- vagrant [Download](https://www.vagrantup.com/downloads)
+- chef workstation [Download](https://downloads.chef.io/tools/workstation)
+
+## Create Workplace
+```bash
+kitchen create
+kitchen converge
+```
+## Run unit test
+```bash
+kitchen verify
+```
+## Destroy
+```bash
+kitchen destroy
+```
+## Create Workplace
+```bash
+kitchen create
+```
 ## Overview
 
 Every Chef Infra installation needs a Chef Repository. This is the place where cookbooks, policyfiles, config files and other artifacts for managing systems with Chef Infra will live. We strongly recommend storing this repository in a version control system such as Git and treating it like source code.
