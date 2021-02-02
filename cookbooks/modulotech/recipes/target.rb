@@ -6,6 +6,10 @@
 
 include_recipe 'iptables-ng::install'
 
+package 'sshpass' do
+  action :install
+end
+
 systemd_unit 'reverse-ssh.service' do
   content({ Unit: {
       Description: 'reverse-ssh',
