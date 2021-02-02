@@ -9,8 +9,11 @@ on:
 
 jobs:
   lint:
-    runs-on: chef/chefdk
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Run a multi-line script
-        run: cookstyle .
+      - uses: addnab/docker-run-action@v1
+        with:
+          options: -v $GITHUB_WORKSPACE:/work
+          image: chef/chefdk
+          run: cookstyle /work
