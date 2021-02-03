@@ -18,12 +18,13 @@ systemd_unit 'reverse-ssh.service' do
   },
   Service: {
       Type: 'simple',
-      ExecStart: "sshpass -p 'vagrant' ssh -o StrictHostKeyChecking=no -NR 22#{node['reverse-ssh']['port']}:localhost:22 vagrant@192.168.0.10",
+      ExecStart: "sshpass -p 'admin' ssh -o StrictHostKeyChecking=no -NR 22#{node['reverse-ssh']['port']}:localhost:22 admin@#{node['reverse-ssh']['gate_ip']}",
       Restart: 'always',
   },
   Install: {
       WantedBy: 'multi-user.target',
       } })
+  triggers_reload false
   action [:create, :enable, :start, :reload_or_restart]
 end
 

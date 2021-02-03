@@ -4,9 +4,16 @@
 #
 # Copyright:: 2021, The Authors, All Rights Reserved.
 
-template '/home/vagrant/.ssh/config' do
+directory '/home/admin/.ssh' do
+  owner 'admin'
+  group 'sysadmin'
+  mode '0700'
+  action :create
+end
+
+template '/home/admin/.ssh/config' do
   source 'ssh/config.erb'
-  owner 'vagrant'
-  group 'vagrant'
+  owner 'admin'
+  group 'sysadmin'
   variables(reverse_ssh: node['reverse_ssh'])
 end

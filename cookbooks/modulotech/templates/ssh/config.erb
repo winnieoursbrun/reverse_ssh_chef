@@ -1,6 +1,6 @@
 <% @reverse_ssh.each  do |server| -%>
 Host <%= server['name'] %>
     HostName localhost
-    User vagrant
+    User admin
     Port 22<%= server['port'] %>
 <% end -%>

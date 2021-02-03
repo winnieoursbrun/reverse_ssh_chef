@@ -1,26 +1,30 @@
 ---
 driver:
-  name: vagrant
-  customize:
-    memory: 256
-    cpuexecutioncap: 25
+  name: dokken
+  chef_version: 16
+
+transport:
+  name: dokken
 
 provisioner:
-  name: chef_zero
+  name: dokken
 
 verifier:
   name: inspec
 
 platforms:
-  - name: debian-10
+- name: debian-10
+  driver:
+    image: dokken/debian-10
+    privileged: true
+    pid_one_command: /bin/systemd
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
 
 suites:
   - name: gate
     provisioner:
       policyfile: policyfiles/gate.rb
-    driver:
-      network:
-        - ["private_network", {ip: "192.168.0.10"}]
     attributes:
       reverse_ssh:
         - name: target1
@@ -28,13 +32,10 @@ suites:
   - name: target1
     provisioner:
       policyfile: policyfiles/target.rb
-    driver:
-      network:
-        - ["private_network", {ip: "192.168.0.11"}]
     attributes:
       reverse-ssh:
         port: 11
-        gate_ip: 192.168.0.10
+        gate_ip: 172.17.0.2
     verifier:
       inspec_tests:
         - test/integration/target
